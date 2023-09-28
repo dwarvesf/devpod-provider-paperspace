@@ -12,7 +12,7 @@ import (
 // NewRootCmd returns a new root command
 func NewRootCmd() *cobra.Command {
 	scalewayCmd := &cobra.Command{
-		Use:           "devpod-provider-scaleway",
+		Use:           "devpod-provider-paperspace",
 		Short:         "Scaleway Provider commands",
 		SilenceErrors: true,
 		SilenceUsage:  true,

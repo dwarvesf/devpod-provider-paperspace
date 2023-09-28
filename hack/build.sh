@@ -35,7 +35,7 @@ mkdir -p "${PROVIDER_ROOT}/release"
 
 for OS in ${PROVIDER_BUILD_PLATFORMS[@]}; do
   for ARCH in ${PROVIDER_BUILD_ARCHS[@]}; do
-    NAME="devpod-provider-scaleway-${OS}-${ARCH}"
+    NAME="devpod-provider-paperspace-${OS}-${ARCH}"
     if [[ "${OS}" == "windows" ]]; then
       NAME="${NAME}.exe"
     fi

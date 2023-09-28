@@ -10,11 +10,11 @@ import (
 )
 
 var checksumMap = map[string]string{
-	"./release/devpod-provider-scaleway-linux-amd64":       "##CHECKSUM_LINUX_AMD64##",
-	"./release/devpod-provider-scaleway-linux-arm64":       "##CHECKSUM_LINUX_ARM64##",
-	"./release/devpod-provider-scaleway-darwin-amd64":      "##CHECKSUM_DARWIN_AMD64##",
-	"./release/devpod-provider-scaleway-darwin-arm64":      "##CHECKSUM_DARWIN_ARM64##",
-	"./release/devpod-provider-scaleway-windows-amd64.exe": "##CHECKSUM_WINDOWS_AMD64##",
+	"./release/devpod-provider-paperspace-linux-amd64":       "##CHECKSUM_LINUX_AMD64##",
+	"./release/devpod-provider-paperspace-linux-arm64":       "##CHECKSUM_LINUX_ARM64##",
+	"./release/devpod-provider-paperspace-darwin-amd64":      "##CHECKSUM_DARWIN_AMD64##",
+	"./release/devpod-provider-paperspace-darwin-arm64":      "##CHECKSUM_DARWIN_ARM64##",
+	"./release/devpod-provider-paperspace-windows-amd64.exe": "##CHECKSUM_WINDOWS_AMD64##",
 }
 
 func main() {

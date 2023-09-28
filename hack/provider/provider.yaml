@@ -78,11 +78,11 @@ agent:
     PPS_PROVIDER:
       - os: linux
         arch: amd64
-        path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-amd64
+        path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-paperspace-linux-amd64
         checksum: ##CHECKSUM_LINUX_AMD64##
       - os: linux
         arch: arm64
-        path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-arm64
+        path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-paperspace-linux-arm64
         checksum: ##CHECKSUM_LINUX_ARM64##
   exec:
     shutdown: |-
@@ -91,23 +91,23 @@ binaries:
   PPS_PROVIDER:
     - os: linux
       arch: amd64
-      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-amd64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-paperspace-linux-amd64
       checksum: ##CHECKSUM_LINUX_AMD64##
     - os: linux
       arch: arm64
-      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-arm64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-paperspace-linux-arm64
       checksum: ##CHECKSUM_LINUX_ARM64##
     - os: darwin
       arch: amd64
-      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-darwin-amd64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-paperspace-darwin-amd64
       checksum: ##CHECKSUM_DARWIN_AMD64##
     - os: darwin
       arch: arm64
-      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-darwin-arm64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-paperspace-darwin-arm64
       checksum: ##CHECKSUM_DARWIN_ARM64##
     - os: windows
       arch: amd64
-      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-windows-amd64.exe
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-paperspace-windows-amd64.exe
       checksum: ##CHECKSUM_WINDOWS_AMD64##
 exec:
   init: ${PPS_PROVIDER} init
