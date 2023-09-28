@@ -50,13 +50,15 @@ devpod provider use github.com/dwarvesf/devpod-provider-paperspace
 
 ### Trying it out
 
-You can use Microsoft's [`vscode-remote-try-node`](https://github.com/microsoft/vscode-remote-try-node)'s example app to try out the provider. You can run the following command to try it out:
+You can use Microsoft's [`vscode-remote-try-node`](https://github.com/microsoft/vscode-remote-try-node)'s example app to try out the provider. To keep it interactive, we'll use the `openvscode` IDE to run VSCode in the browser. You can run the following command to try it out:
 
 ```sh
 devpod up github.com/microsoft/vscode-remote-try-node --ide openvscode
 ```
 
 It should take a bit while it is provisioning the machine for you, but you will be emailed by Paperspace that you have created a new machine. You can reference an example output from the command here: https://app.warp.dev/block/pgQghAkqstTdyCevilplVa
+
+You should then see a new window open to your new localhost server, running VSCode in the browser.
 
 ![](https://i.imgur.com/H3EXRub.png)
 
