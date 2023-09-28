@@ -6,12 +6,12 @@ import (
 )
 
 var (
-	PPS_DEFAULT_ZONE = "PPS_DEFAULT_ZONE"
-	PPS_MACHINE_TYPE = "PPS_MACHINE_TYPE"
-	PPS_IMAGE        = "PPS_IMAGE"
-	PPS_DISK_SIZE    = "PPS_DISK_SIZE"
-	MACHINE_NAME     = "MACHINE_NAME"
-	MACHINE_FOLDER   = "MACHINE_FOLDER"
+	PPS_DEFAULT_ZONE   = "PPS_DEFAULT_ZONE"
+	PPS_MACHINE_TYPE   = "PPS_MACHINE_TYPE"
+	PPS_IMAGE          = "PPS_IMAGE"
+	PPS_DISK_SIZE      = "PPS_DISK_SIZE"
+	PPS_MACHINE_NAME   = "PPS_MACHINE_NAME"
+	PPS_MACHINE_FOLDER = "PPS_MACHINE_FOLDER"
 )
 
 type Options struct {
@@ -63,14 +63,14 @@ func FromEnv(init bool) (*Options, error) {
 		return retOptions, nil
 	}
 
-	retOptions.MachineName, err = fromEnvOrError(MACHINE_NAME)
+	retOptions.MachineName, err = fromEnvOrError(PPS_MACHINE_NAME)
 	if err != nil {
 		return nil, err
 	}
 	// prefix with devpod-
 	retOptions.MachineName = "devpod-" + retOptions.MachineName
 
-	retOptions.MachineFolder, err = fromEnvOrError(MACHINE_FOLDER)
+	retOptions.MachineFolder, err = fromEnvOrError(PPS_MACHINE_FOLDER)
 	if err != nil {
 		return nil, err
 	}

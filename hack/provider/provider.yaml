@@ -9,6 +9,8 @@ optionGroups:
       - PPS_IMAGE
       - PPS_MACHINE_TYPE
       - PPS_DEFAULT_ZONE
+      - PPS_MACHINE_NAME
+      - PPS_MACHINE_FOLDER
     name: "Paperspace options"
   - options:
       - AGENT_PATH
@@ -39,6 +41,7 @@ options:
   PPS_IMAGE:
     description: The disk image to use.
     default: docker
+
   PPS_MACHINE_TYPE:
     description: The machine type to use.
     required: true
@@ -85,21 +88,35 @@ options:
       - C7
       - C8
       - C9
+
+  PPS_MACHINE_NAME:
+    description: The name of the Paperspace Machine
+    default: remote-environment
+
+  PPS_MACHINE_FOLDER:
+    description: The local folder which has your SSH public and private keys located to be used with Paperspace
+    required: true
+
   INACTIVITY_TIMEOUT:
     description: If defined, will automatically stop the VM after the inactivity period.
     default: 10m
+
   INJECT_GIT_CREDENTIALS:
     description: "If DevPod should inject git credentials into the remote host."
     default: "true"
+
   INJECT_DOCKER_CREDENTIALS:
     description: "If DevPod should inject docker credentials into the remote host."
     default: "true"
+
   AGENT_PATH:
     description: The path where to inject the DevPod agent to.
     default: /home/devpod/.devpod/devpod
+
   AGENT_DATA_PATH:
     description: The path where to store the agent data.
     default: /home/devpod/.devpod/agent
+
 agent:
   path: ${AGENT_PATH}
   dataPath: ${AGENT_DATA_PATH}
