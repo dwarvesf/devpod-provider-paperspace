@@ -41,18 +41,50 @@ options:
     default: docker
   PPS_MACHINE_TYPE:
     description: The machine type to use.
-    default: PLAY2-MICRO
+    required: true
+    default: GPU+
     suggestions:
-      - PLAY2-PICO
-      - PLAY2-NANO
-      - PLAY2-MICRO
-      - DEV1-S
-      - DEV1-M
-      - DEV1-L
-      - GP1-XS
-      - GP1-S
-      - GP1-M
-      - GP1-L
+      - Air
+      - Standard
+      - Pro
+      - Advanced
+      - GPU+
+      - P4000
+      - RTX4000
+      - A4000
+      - P5000
+      - RTX5000
+      - P6000
+      - A5000
+      - A6000
+      - V100
+      - V100-32G
+      - A100-80G
+      - P4000x2
+      - RTX4000x2
+      - A4000x2
+      - A4000x4
+      - P5000x2
+      - RTX5000x2
+      - P6000x2
+      - A5000x2
+      - A5000x4
+      - A6000x2
+      - A6000x4
+      - V100x2
+      - V100-32Gx2
+      - V100-32Gx4
+      - A100-80Gx2
+      - A100-80Gx4
+      - A100-80Gx8
+      - C2
+      - C3
+      - C4
+      - C5
+      - C6
+      - C7
+      - C8
+      - C9
   INACTIVITY_TIMEOUT:
     description: If defined, will automatically stop the VM after the inactivity period.
     default: 10m

@@ -6,15 +6,12 @@ import (
 )
 
 var (
-	PPS_DEFAULT_PROJECT_ID      = "PPS_DEFAULT_PROJECT_ID"
-	PPS_DEFAULT_ORGANIZATION_ID = "PPS_DEFAULT_ORGANIZATION_ID"
-	PPS_DEFAULT_REGION          = "PPS_DEFAULT_REGION"
-	PPS_DEFAULT_ZONE            = "PPS_DEFAULT_ZONE"
-	PPS_MACHINE_TYPE            = "PPS_MACHINE_TYPE"
-	PPS_IMAGE                   = "PPS_IMAGE"
-	PPS_DISK_SIZE               = "PPS_DISK_SIZE"
-	MACHINE_ID                  = "MACHINE_ID"
-	MACHINE_FOLDER              = "MACHINE_FOLDER"
+	PPS_DEFAULT_ZONE = "PPS_DEFAULT_ZONE"
+	PPS_MACHINE_TYPE = "PPS_MACHINE_TYPE"
+	PPS_IMAGE        = "PPS_IMAGE"
+	PPS_DISK_SIZE    = "PPS_DISK_SIZE"
+	MACHINE_NAME     = "MACHINE_NAME"
+	MACHINE_FOLDER   = "MACHINE_FOLDER"
 )
 
 type Options struct {
@@ -26,7 +23,7 @@ type Options struct {
 	ProjectID      string
 	ServerID       string
 
-	MachineID     string
+	MachineName   string
 	MachineFolder string
 }
 
@@ -60,26 +57,18 @@ func FromEnv(init bool) (*Options, error) {
 	if err != nil {
 		return nil, err
 	}
-	retOptions.OrganizationID, err = fromEnvOrError(PPS_DEFAULT_ORGANIZATION_ID)
-	if err != nil {
-		return nil, err
-	}
-	retOptions.ProjectID, err = fromEnvOrError(PPS_DEFAULT_PROJECT_ID)
-	if err != nil {
-		return nil, err
-	}
 
 	// Return eraly if we're just doing init
 	if init {
 		return retOptions, nil
 	}
 
-	retOptions.MachineID, err = fromEnvOrError(MACHINE_ID)
+	retOptions.MachineName, err = fromEnvOrError(MACHINE_NAME)
 	if err != nil {
 		return nil, err
 	}
 	// prefix with devpod-
-	retOptions.MachineID = "devpod-" + retOptions.MachineID
+	retOptions.MachineName = "devpod-" + retOptions.MachineName
 
 	retOptions.MachineFolder, err = fromEnvOrError(MACHINE_FOLDER)
 	if err != nil {
