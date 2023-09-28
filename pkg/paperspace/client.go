@@ -21,6 +21,10 @@ func NewClient(apiKey string) *Client {
 		Backend: NewAPIBackend(),
 	}
 
+	if apiKey != "" {
+		client.APIKey = apiKey
+	}
+
 	return &client
 }
 
