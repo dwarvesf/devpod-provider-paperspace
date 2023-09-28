@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/dwarvesf/devpod-provider-paperspace/pkg/options"
 	"github.com/loft-sh/devpod/pkg/client"
@@ -47,9 +48,6 @@ func GetDevpodInstance(paperspaceProvider *PaperspaceProvider) (*GetMachineRespo
 		return nil, err
 	}
 
-	fmt.Println(paperspaceProvider.Config)
-	fmt.Println(servers)
-
 	if len(servers) == 0 {
 		return nil, fmt.Errorf("no devpod instance found")
 	}
@@ -77,6 +75,22 @@ func Create(paperspaceProvider *PaperspaceProvider) error {
 	})
 	if err != nil {
 		return err
+	}
+
+	stillCreating := true
+	for stillCreating {
+		devPodInstance, err := GetDevpodInstance(paperspaceProvider)
+		if err != nil {
+			return err
+		}
+
+		state := devPodInstance.State
+
+		if state == Ready {
+			stillCreating = false
+		} else {
+			time.Sleep(2 * time.Second)
+		}
 	}
 
 	return nil
@@ -111,6 +125,22 @@ func Start(paperspaceProvider *PaperspaceProvider) error {
 		return err
 	}
 
+	stillCreating := true
+	for stillCreating {
+		devPodInstance, err := GetDevpodInstance(paperspaceProvider)
+		if err != nil {
+			return err
+		}
+
+		state := devPodInstance.State
+
+		if state == Ready {
+			stillCreating = false
+		} else {
+			time.Sleep(2 * time.Second)
+		}
+	}
+
 	return nil
 }
 
@@ -123,7 +153,7 @@ func Status(paperspaceProvider *PaperspaceProvider) (client.Status, error) {
 	state := devPodInstance.State
 
 	switch {
-	case state == Done:
+	case state == Ready:
 		return client.StatusRunning, nil
 	case state == Off:
 		return client.StatusStopped, nil
@@ -143,6 +173,22 @@ func Stop(paperspaceProvider *PaperspaceProvider) error {
 	})
 	if err != nil {
 		return err
+	}
+
+	stillCreating := true
+	for stillCreating {
+		devPodInstance, err := GetDevpodInstance(paperspaceProvider)
+		if err != nil {
+			return err
+		}
+
+		state := devPodInstance.State
+
+		if state == Ready {
+			stillCreating = false
+		} else {
+			time.Sleep(2 * time.Second)
+		}
 	}
 
 	return nil

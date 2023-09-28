@@ -2,7 +2,7 @@ name: paperspace
 version: ##VERSION##
 description: |-
   DevPod on Paperspace
-icon: https://raw.githubusercontent.com/dwarvesf/devpod-provider-paperspace/d5924bbd7054889d45b13a1546d08ee5e3acb7ff/paperspace.svg
+icon: https://raw.githubusercontent.com/dwarvesf/devpod-provider-paperspace/main/paperspace.svg
 optionGroups:
   - options:
       - PPS_DISK_SIZE

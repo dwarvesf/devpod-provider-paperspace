@@ -15,7 +15,6 @@ const (
 	Ready        = "ready"
 	Upgrading    = "upgrading"
 	Provisioning = "provisioning"
-	Done         = "done"
 )
 
 // Machine represents a Paperspace machine

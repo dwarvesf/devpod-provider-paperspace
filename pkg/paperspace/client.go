@@ -7,7 +7,7 @@ import (
 
 type RequestParams struct {
 	Context context.Context   `json:"-,omitempty" url:"-,omitempty"`
-	Headers map[string]string `json:"-,omitempty" url:"-,omitempty"`
+	Headers map[string]string `json:"--,omitempty" url:"--,omitempty"`
 }
 
 type Client struct {

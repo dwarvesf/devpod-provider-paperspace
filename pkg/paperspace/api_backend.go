@@ -95,7 +95,9 @@ func (c *APIBackend) request(method string, url string,
 		if err != nil {
 			return res, err
 		}
-		fullURL += "?" + values.Encode()
+		if len(values) > 0 {
+			fullURL += "?" + values.Encode()
+		}
 
 	case "POST":
 		if params != nil {
@@ -106,7 +108,6 @@ func (c *APIBackend) request(method string, url string,
 			body = bytes.NewReader(data)
 		}
 	}
-	fmt.Println(fullURL)
 
 	req, err = http.NewRequest(method, fullURL, body)
 	if err != nil {
@@ -187,7 +188,6 @@ func (c *APIBackend) request(method string, url string,
 
 	if result != nil && res.StatusCode != http.StatusNoContent {
 		decoder := json.NewDecoder(res.Body)
-		fmt.Println("Decoder: ", decoder)
 		if err = decoder.Decode(result); err != nil {
 			return res, err
 		}
