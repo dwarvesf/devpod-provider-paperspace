@@ -12,6 +12,8 @@ import (
 	"net/http/httputil"
 	"os"
 	"time"
+
+	"github.com/google/go-querystring/query"
 )
 
 type Backend interface {
@@ -85,16 +87,26 @@ func (c *APIBackend) request(method string, url string,
 	var req *http.Request
 	body := bytes.NewReader(make([]byte, 0))
 
-	if params != nil {
-		data, err = json.Marshal(params)
+	fullURL := fmt.Sprintf("%s%s", c.BaseURL, url)
+
+	switch method {
+	case "GET":
+		values, err := query.Values(params)
 		if err != nil {
 			return res, err
 		}
+		fullURL += "?" + values.Encode()
 
-		body = bytes.NewReader(data)
+	case "POST":
+		if params != nil {
+			data, err = json.Marshal(params)
+			if err != nil {
+				return res, err
+			}
+			body = bytes.NewReader(data)
+		}
 	}
-
-	fullURL := fmt.Sprintf("%s%s", c.BaseURL, url)
+	fmt.Println(fullURL)
 
 	req, err = http.NewRequest(method, fullURL, body)
 	if err != nil {
@@ -121,6 +133,7 @@ func (c *APIBackend) request(method string, url string,
 		c.debug(string(requestDump))
 	}
 
+	req.Close = true
 	res, err = c.HTTPClient.Do(req)
 	if err != nil {
 		return res, err
@@ -156,14 +169,14 @@ func (c *APIBackend) request(method string, url string,
 		errorResponseDecoder := json.NewDecoder(errorReader)
 		if err := errorResponseDecoder.Decode(&paperspaceErrorResponse); err != nil {
 			c.debug(string(err.Error()))
-			return res, errors.New("There was a server error, please try your request again")
+			return res, errors.New("there was a server error, please try your request again")
 		}
 
 		if paperspaceErrorResponse.Error == nil {
 			errorDecoder := json.NewDecoder(errorReader)
 			if err := errorDecoder.Decode(&paperspaceErrorResponse); err != nil {
 				c.debug(string(err.Error()))
-				return res, errors.New("There was a server error, please try your request again")
+				return res, errors.New("there was a server error, please try your request again")
 			}
 
 			return res, error(paperspaceError)
@@ -172,8 +185,9 @@ func (c *APIBackend) request(method string, url string,
 		return res, error(paperspaceErrorResponse.Error)
 	}
 
-	if result != nil {
+	if result != nil && res.StatusCode != http.StatusNoContent {
 		decoder := json.NewDecoder(res.Body)
+		fmt.Println("Decoder: ", decoder)
 		if err = decoder.Decode(result); err != nil {
 			return res, err
 		}

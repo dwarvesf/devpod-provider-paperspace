@@ -16,13 +16,10 @@ var (
 )
 
 type Options struct {
-	Image          string
-	MachineType    string
-	DiskSizeGB     string
-	Region         string
-	OrganizationID string
-	ProjectID      string
-	ServerID       string
+	Image       string
+	MachineType string
+	DiskSizeGB  string
+	Region      string
 
 	MachineName     string
 	MachineTemplate string
@@ -71,6 +68,11 @@ func FromEnv(init bool) (*Options, error) {
 	}
 	// prefix with devpod-
 	retOptions.MachineName = "devpod-" + retOptions.MachineName
+
+	retOptions.MachineTemplate, err = fromEnvOrError(PPS_MACHINE_TEMPLATE)
+	if err != nil {
+		return nil, err
+	}
 
 	retOptions.MachineFolder, err = fromEnvOrError(PPS_MACHINE_FOLDER)
 	if err != nil {

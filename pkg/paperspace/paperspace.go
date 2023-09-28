@@ -47,11 +47,16 @@ func GetDevpodInstance(paperspaceProvider *PaperspaceProvider) (*GetMachineRespo
 		return nil, err
 	}
 
+	fmt.Println(paperspaceProvider.Config)
+	fmt.Println(servers)
+
 	if len(servers) == 0 {
 		return nil, fmt.Errorf("no devpod instance found")
 	}
 
-	machine, err := paperspaceProvider.Client.GetMachine(servers[0].ID, GetMachineParams{})
+	machine, err := paperspaceProvider.Client.GetMachine(GetMachineParams{
+		MachineID: servers[0].ID,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +88,9 @@ func Delete(paperspaceProvider *PaperspaceProvider) error {
 		return err
 	}
 
-	_, err = paperspaceProvider.Client.DestroyMachine(devPodInstance.ID, DestroyMachineParams{})
+	_, err = paperspaceProvider.Client.DestroyMachine(DestroyMachineParams{
+		MachineID: devPodInstance.ID,
+	})
 	if err != nil {
 		return err
 	}
@@ -97,7 +104,9 @@ func Start(paperspaceProvider *PaperspaceProvider) error {
 		return err
 	}
 
-	_, err = paperspaceProvider.Client.StartMachine(devPodInstance.ID, StartMachineParams{})
+	_, err = paperspaceProvider.Client.StartMachine(StartMachineParams{
+		MachineID: devPodInstance.ID,
+	})
 	if err != nil {
 		return err
 	}
@@ -111,11 +120,10 @@ func Status(paperspaceProvider *PaperspaceProvider) (client.Status, error) {
 		return client.StatusNotFound, nil
 	}
 
-	events := devPodInstance.Events
-	state := events[len(events)-1].State
+	state := devPodInstance.State
 
 	switch {
-	case state == Ready:
+	case state == Done:
 		return client.StatusRunning, nil
 	case state == Off:
 		return client.StatusStopped, nil
@@ -130,7 +138,9 @@ func Stop(paperspaceProvider *PaperspaceProvider) error {
 		return err
 	}
 
-	_, err = paperspaceProvider.Client.StopMachine(devPodInstance.ID, StopMachineParams{})
+	_, err = paperspaceProvider.Client.StopMachine(StopMachineParams{
+		MachineID: devPodInstance.ID,
+	})
 	if err != nil {
 		return err
 	}

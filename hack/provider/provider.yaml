@@ -45,7 +45,7 @@ options:
   PPS_MACHINE_TYPE:
     description: The machine type to use.
     required: true
-    default: GPU+
+    default: C4
     suggestions:
       - Air
       - Standard

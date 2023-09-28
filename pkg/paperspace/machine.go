@@ -15,6 +15,7 @@ const (
 	Ready        = "ready"
 	Upgrading    = "upgrading"
 	Provisioning = "provisioning"
+	Done         = "done"
 )
 
 // Machine represents a Paperspace machine
@@ -118,6 +119,7 @@ type UpdateMachineParams struct {
 // GetMachineParams represents the parameters for GetMachine method
 type GetMachineParams struct {
 	RequestParams
+	MachineID string `json:"machineId" url:"machineId"` // required
 }
 
 type GetMachineResponse struct {
@@ -165,90 +167,90 @@ type Event struct {
 // ListMachinesParams represents the parameters object for ListMachines method
 type GetMachinesParams struct {
 	RequestParams
-	Limit                  string `json:"limit,omitempty"`
-	Skip                   string `json:"skip,omitempty"`
-	MachineID              string `json:"machineId,omitempty"`
-	Name                   string `json:"name,omitempty"`
-	OS                     string `json:"os,omitempty"`
-	RAM                    string `json:"ram,omitempty"`
-	CPUs                   int    `json:"cpu,omitempty"`
-	GPU                    string `json:"gpu,omitempty"`
-	StorageTotal           string `json:"storageTotal,omitempty"`
-	StorageUsed            string `json:"storageUsed,omitempty"`
-	UsageRate              string `json:"usageRate,omitempty"`
-	ShutdownTimeoutInHours int    `json:"shutdownTimeoutInHours,omitempty"`
-	PerformAutoSnapshot    bool   `json:"performAutoSnapshot,omitempty"`
-	AutoSnapshotFrequency  string `json:"autoSnapshotFrequency,omitempty"`
-	AutoSnapshotSaveCount  int    `json:"autoSnapshotSaveCount,omitempty"`
-	AgentType              string `json:"agentType,omitempty"`
-	DtCreated              string `json:"dtCreated,omitempty"`
-	State                  string `json:"state,omitempty"`
-	UpdatesPending         string `json:"updatesPending,omitempty"`
-	NetworkID              string `json:"networkId,omitempty"`
-	PrivateIPAddress       string `json:"privateIpAddress,omitempty"`
-	PublicIPAddress        string `json:"publicIpAddress,omitempty"`
-	Region                 string `json:"region,omitempty"`
-	UserID                 string `json:"userId,omitempty"`
-	TeamID                 string `json:"teamId,omitempty"`
-	ScriptID               string `json:"scriptId,omitempty"`
-	DtLastRun              string `json:"dtLastRun,omitempty"`
+	Limit                  string `json:"limit,omitempty" url:"limit,omitempty"`
+	Skip                   string `json:"skip,omitempty" url:"skip,omitempty"`
+	MachineID              string `json:"machineId,omitempty" url:"machineId,omitempty"`
+	Name                   string `json:"name,omitempty" url:"name,omitempty"`
+	OS                     string `json:"os,omitempty" url:"os,omitempty"`
+	RAM                    string `json:"ram,omitempty" url:"ram,omitempty"`
+	CPUs                   int    `json:"cpu,omitempty" url:"cpu,omitempty"`
+	GPU                    string `json:"gpu,omitempty" url:"gpu,omitempty"`
+	StorageTotal           string `json:"storageTotal,omitempty" url:"storageTotal,omitempty"`
+	StorageUsed            string `json:"storageUsed,omitempty" url:"storageUsed,omitempty"`
+	UsageRate              string `json:"usageRate,omitempty" url:"usageRate,omitempty"`
+	ShutdownTimeoutInHours int    `json:"shutdownTimeoutInHours,omitempty" url:"shutdownTimeoutInHours,omitempty"`
+	PerformAutoSnapshot    bool   `json:"performAutoSnapshot,omitempty" url:"performAutoSnapshot,omitempty"`
+	AutoSnapshotFrequency  string `json:"autoSnapshotFrequency,omitempty" url:"autoSnapshotFrequency,omitempty"`
+	AutoSnapshotSaveCount  int    `json:"autoSnapshotSaveCount,omitempty" url:"autoSnapshotSaveCount,omitempty"`
+	AgentType              string `json:"agentType,omitempty" url:"agentType,omitempty"`
+	DtCreated              string `json:"dtCreated,omitempty" url:"dtCreated,omitempty"`
+	State                  string `json:"state,omitempty" url:"state,omitempty"`
+	UpdatesPending         string `json:"updatesPending,omitempty" url:"updatesPending,omitempty"`
+	NetworkID              string `json:"networkId,omitempty" url:"networkId,omitempty"`
+	PrivateIPAddress       string `json:"privateIpAddress,omitempty" url:"privateIpAddress,omitempty"`
+	PublicIPAddress        string `json:"publicIpAddress,omitempty" url:"publicIpAddress,omitempty"`
+	Region                 string `json:"region,omitempty" url:"region,omitempty"`
+	UserID                 string `json:"userId,omitempty" url:"userId,omitempty"`
+	TeamID                 string `json:"teamId,omitempty" url:"teamId,omitempty"`
+	ScriptID               string `json:"scriptId,omitempty" url:"scriptId,omitempty"`
+	DtLastRun              string `json:"dtLastRun,omitempty" url:"dtLastRun,omitempty"`
 }
 
 // CreateMachine creates a machine
 func (c Client) CreateMachine(params CreateMachineParams) (Machine, error) {
 	machine := Machine{}
 
-	url := fmt.Sprintf("/machines/createSingleMachinePublic")
+	url := "/machines/createSingleMachinePublic"
 	_, err := c.Request("POST", url, params, &machine, params.RequestParams)
 
 	return machine, err
 }
 
 // StartMachine starts a machine
-func (c Client) StartMachine(id string, params StartMachineParams) (Machine, error) {
+func (c Client) StartMachine(params StartMachineParams) (Machine, error) {
 	machine := Machine{}
 
-	url := fmt.Sprintf("/machines/%s/start", id)
+	url := fmt.Sprintf("/machines/%s/start", params.MachineID)
 	_, err := c.Request("POST", url, nil, &machine, params.RequestParams)
 
 	return machine, err
 }
 
 // StopMachine stops a machine
-func (c Client) StopMachine(id string, params StopMachineParams) (Machine, error) {
+func (c Client) StopMachine(params StopMachineParams) (Machine, error) {
 	machine := Machine{}
 
-	url := fmt.Sprintf("/machines/%s/stop", id)
+	url := fmt.Sprintf("/machines/%s/stop", params.MachineID)
 	_, err := c.Request("POST", url, nil, &machine, params.RequestParams)
 
 	return machine, err
 }
 
 // RestartMachine restarts a machine
-func (c Client) RestartMachine(id string, params RestartMachineParams) (Machine, error) {
+func (c Client) RestartMachine(params RestartMachineParams) (Machine, error) {
 	machine := Machine{}
 
-	url := fmt.Sprintf("/machines/%s/restart", id)
+	url := fmt.Sprintf("/machines/%s/restart", params.MachineID)
 	_, err := c.Request("POST", url, nil, &machine, params.RequestParams)
 
 	return machine, err
 }
 
 // DestroyMachine destroys a machine
-func (c Client) DestroyMachine(id string, params DestroyMachineParams) (Machine, error) {
+func (c Client) DestroyMachine(params DestroyMachineParams) (Machine, error) {
 	machine := Machine{}
 
-	url := fmt.Sprintf("/machines/%s/destroyMachine", id)
+	url := fmt.Sprintf("/machines/%s/destroyMachine", params.MachineID)
 	_, err := c.Request("POST", url, nil, &machine, params.RequestParams)
 
 	return machine, err
 }
 
 // UpdateMachine updates a machine
-func (c Client) UpdateMachine(id string, params UpdateMachineParams) (Machine, error) {
+func (c Client) UpdateMachine(params UpdateMachineParams) (Machine, error) {
 	machine := Machine{}
 
-	url := fmt.Sprintf("/machines/%s/restart", id)
+	url := fmt.Sprintf("/machines/%s/restart", params.MachineID)
 	_, err := c.Request("POST", url, nil, &machine, params.RequestParams)
 
 	return machine, err
@@ -258,17 +260,17 @@ func (c Client) UpdateMachine(id string, params UpdateMachineParams) (Machine, e
 func (c Client) GetMachines(params GetMachinesParams) ([]Machine, error) {
 	machines := []Machine{}
 
-	url := fmt.Sprintf("/machines/getMachines")
+	url := "/machines/getMachines"
 	_, err := c.Request("GET", url, params, &machines, params.RequestParams)
 
 	return machines, err
 }
 
 // CreateMachine creates a machine
-func (c Client) GetMachine(id string, params GetMachineParams) (GetMachineResponse, error) {
+func (c Client) GetMachine(params GetMachineParams) (GetMachineResponse, error) {
 	machine := GetMachineResponse{}
 
-	url := fmt.Sprintf("/machines/getMachinePublic?machineId=%s", id)
+	url := "/machines/getMachinePublic"
 	_, err := c.Request("GET", url, params, &machine, params.RequestParams)
 
 	return machine, err
