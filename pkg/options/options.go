@@ -6,32 +6,34 @@ import (
 )
 
 var (
-	PPS_DEFAULT_ZONE   = "PPS_DEFAULT_ZONE"
-	PPS_MACHINE_TYPE   = "PPS_MACHINE_TYPE"
-	PPS_IMAGE          = "PPS_IMAGE"
-	PPS_DISK_SIZE      = "PPS_DISK_SIZE"
-	PPS_MACHINE_NAME   = "PPS_MACHINE_NAME"
-	PPS_MACHINE_FOLDER = "PPS_MACHINE_FOLDER"
+	PPS_DEFAULT_REGION   = "PPS_DEFAULT_REGION"
+	PPS_MACHINE_TYPE     = "PPS_MACHINE_TYPE"
+	PPS_IMAGE            = "PPS_IMAGE"
+	PPS_DISK_SIZE        = "PPS_DISK_SIZE"
+	PPS_MACHINE_NAME     = "PPS_MACHINE_NAME"
+	PPS_MACHINE_TEMPLATE = "PPS_MACHINE_TEMPLATE"
+	PPS_MACHINE_FOLDER   = "PPS_MACHINE_FOLDER"
 )
 
 type Options struct {
 	Image          string
 	MachineType    string
 	DiskSizeGB     string
-	Zone           string
+	Region         string
 	OrganizationID string
 	ProjectID      string
 	ServerID       string
 
-	MachineName   string
-	MachineFolder string
+	MachineName     string
+	MachineTemplate string
+	MachineFolder   string
 }
 
 func ConfigFromEnv() (Options, error) {
 	return Options{
 		Image:       os.Getenv(PPS_IMAGE),
 		MachineType: os.Getenv(PPS_MACHINE_TYPE),
-		Zone:        os.Getenv(PPS_DEFAULT_ZONE),
+		Region:      os.Getenv(PPS_DEFAULT_REGION),
 	}, nil
 }
 
@@ -53,7 +55,7 @@ func FromEnv(init bool) (*Options, error) {
 		return nil, err
 	}
 
-	retOptions.Zone, err = fromEnvOrError(PPS_DEFAULT_ZONE)
+	retOptions.Region, err = fromEnvOrError(PPS_DEFAULT_REGION)
 	if err != nil {
 		return nil, err
 	}

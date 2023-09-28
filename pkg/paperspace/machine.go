@@ -53,9 +53,9 @@ type Machine struct {
 // CreateMachineParams represents the parameters for CreateMachine method
 type CreateMachineParams struct {
 	RequestParams
-	Name                  string `json:"name"`        // required
+	MachineName           string `json:"machineName"` // required
 	MachineType           string `json:"machineType"` // required
-	TemplateId            string `json:"templateId"`  // required
+	TemplateID            string `json:"templateId"`  // required
 	Region                string `json:"region"`      // required
 	Size                  int    `json:"size"`        // required
 	BillingType           string `json:"billingType"` // required

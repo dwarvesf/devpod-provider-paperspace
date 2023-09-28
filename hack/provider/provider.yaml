@@ -8,7 +8,7 @@ optionGroups:
       - PPS_DISK_SIZE
       - PPS_IMAGE
       - PPS_MACHINE_TYPE
-      - PPS_DEFAULT_ZONE
+      - PPS_DEFAULT_REGION
       - PPS_MACHINE_NAME
       - PPS_MACHINE_FOLDER
     name: "Paperspace options"
@@ -25,8 +25,8 @@ options:
     required: true
     password: true
 
-  PPS_DEFAULT_ZONE:
-    description: The Paperspace zone to use. E.g. fra1
+  PPS_DEFAULT_REGION:
+    description: The Paperspace region to use. E.g. West Coast (CA1)
     required: true
     default: "West Coast (CA1)"
     suggestions:
@@ -90,11 +90,23 @@ options:
       - C9
 
   PPS_MACHINE_NAME:
-    description: The name of the Paperspace Machine
+    description: The name of the Paperspace Machine.
     default: remote-environment
 
+  PPS_MACHINE_TEMPLATE:
+    description: The Template ID of the template to use for creating this machine.
+    required: true
+    default: t0nspur5
+    suggestions:
+      - tpi7gqht
+      - tkni3aa4
+      - t0nspur5
+      - t04azgph
+      - t9taj00e
+      - tnr2oh1m
+
   PPS_MACHINE_FOLDER:
-    description: The local folder which has your SSH public and private keys located to be used with Paperspace
+    description: The local folder which has your SSH public and private keys located to be used with Paperspace.
     required: true
 
   INACTIVITY_TIMEOUT:

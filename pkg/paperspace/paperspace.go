@@ -61,9 +61,10 @@ func GetDevpodInstance(paperspaceProvider *PaperspaceProvider) (*GetMachineRespo
 func Create(paperspaceProvider *PaperspaceProvider) error {
 	sizeGB, _ := strconv.Atoi(paperspaceProvider.Config.DiskSizeGB)
 	_, err := paperspaceProvider.Client.CreateMachine(CreateMachineParams{
-		Name:            paperspaceProvider.Config.MachineName,
+		MachineName:     paperspaceProvider.Config.MachineName,
+		TemplateID:      paperspaceProvider.Config.MachineTemplate,
 		MachineType:     paperspaceProvider.Config.MachineType,
-		Region:          paperspaceProvider.Config.Zone,
+		Region:          paperspaceProvider.Config.Region,
 		Size:            sizeGB,
 		BillingType:     "hourly",
 		StartOnCreate:   true,
