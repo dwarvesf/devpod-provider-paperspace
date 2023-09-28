@@ -11,9 +11,9 @@ import (
 
 // NewRootCmd returns a new root command
 func NewRootCmd() *cobra.Command {
-	scalewayCmd := &cobra.Command{
+	paperspaceCmd := &cobra.Command{
 		Use:           "devpod-provider-paperspace",
-		Short:         "Scaleway Provider commands",
+		Short:         "Paperspace Provider commands",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 
@@ -23,7 +23,7 @@ func NewRootCmd() *cobra.Command {
 		},
 	}
 
-	return scalewayCmd
+	return paperspaceCmd
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

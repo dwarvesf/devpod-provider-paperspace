@@ -64,7 +64,7 @@ func (cmd *CommandCmd) Run(
 		return err
 	}
 
-	sshClient, err := ssh.NewSSHClient("devpod", instance.PublicIPAddress+":22", privateKey)
+	sshClient, err := ssh.NewSSHClient("paperspace", instance.PublicIPAddress+":22", privateKey)
 
 	if err != nil {
 		return errors.Wrap(err, "create ssh client")
