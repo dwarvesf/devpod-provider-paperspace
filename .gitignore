@@ -1,0 +1,5 @@
+.idea
+env
+devpod-provider-scaleway
+release
+vendor

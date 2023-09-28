@@ -1,0 +1,119 @@
+name: paperspace
+version: ##VERSION##
+description: |-
+  DevPod on Paperspace
+icon: https://raw.githubusercontent.com/dwarvesf/devpod-provider-paperspace/d5924bbd7054889d45b13a1546d08ee5e3acb7ff/paperspace.svg
+optionGroups:
+  - options:
+      - PPS_DISK_SIZE
+      - PPS_IMAGE
+      - PPS_MACHINE_TYPE
+      - PPS_DEFAULT_ZONE
+    name: "Paperspace options"
+  - options:
+      - AGENT_PATH
+      - AGENT_DATA_PATH
+      - INACTIVITY_TIMEOUT
+      - INJECT_DOCKER_CREDENTIALS
+      - INJECT_GIT_CREDENTIALS
+    name: "Agent options"
+options:
+  PPS_API_KEY:
+    description: The Paperspace Access Key to use.
+    required: true
+    password: true
+
+  PPS_DEFAULT_ZONE:
+    description: The Paperspace zone to use. E.g. fra1
+    required: true
+    default: "West Coast (CA1)"
+    suggestions:
+      - West Coast (CA1)
+      - East Coast (NY2)
+      - Europe (AMS1)
+
+  PPS_DISK_SIZE:
+    description: The disk size in GB.
+    default: "50"
+
+  PPS_IMAGE:
+    description: The disk image to use.
+    default: docker
+  PPS_MACHINE_TYPE:
+    description: The machine type to use.
+    default: PLAY2-MICRO
+    suggestions:
+      - PLAY2-PICO
+      - PLAY2-NANO
+      - PLAY2-MICRO
+      - DEV1-S
+      - DEV1-M
+      - DEV1-L
+      - GP1-XS
+      - GP1-S
+      - GP1-M
+      - GP1-L
+  INACTIVITY_TIMEOUT:
+    description: If defined, will automatically stop the VM after the inactivity period.
+    default: 10m
+  INJECT_GIT_CREDENTIALS:
+    description: "If DevPod should inject git credentials into the remote host."
+    default: "true"
+  INJECT_DOCKER_CREDENTIALS:
+    description: "If DevPod should inject docker credentials into the remote host."
+    default: "true"
+  AGENT_PATH:
+    description: The path where to inject the DevPod agent to.
+    default: /home/devpod/.devpod/devpod
+  AGENT_DATA_PATH:
+    description: The path where to store the agent data.
+    default: /home/devpod/.devpod/agent
+agent:
+  path: ${AGENT_PATH}
+  dataPath: ${AGENT_DATA_PATH}
+  inactivityTimeout: ${INACTIVITY_TIMEOUT}
+  injectGitCredentials: ${INJECT_GIT_CREDENTIALS}
+  injectDockerCredentials: ${INJECT_DOCKER_CREDENTIALS}
+  binaries:
+    PPS_PROVIDER:
+      - os: linux
+        arch: amd64
+        path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-amd64
+        checksum: ##CHECKSUM_LINUX_AMD64##
+      - os: linux
+        arch: arm64
+        path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-arm64
+        checksum: ##CHECKSUM_LINUX_ARM64##
+  exec:
+    shutdown: |-
+      ${PPS_PROVIDER} stop
+binaries:
+  PPS_PROVIDER:
+    - os: linux
+      arch: amd64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-amd64
+      checksum: ##CHECKSUM_LINUX_AMD64##
+    - os: linux
+      arch: arm64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-linux-arm64
+      checksum: ##CHECKSUM_LINUX_ARM64##
+    - os: darwin
+      arch: amd64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-darwin-amd64
+      checksum: ##CHECKSUM_DARWIN_AMD64##
+    - os: darwin
+      arch: arm64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-darwin-arm64
+      checksum: ##CHECKSUM_DARWIN_ARM64##
+    - os: windows
+      arch: amd64
+      path: https://github.com/dwarvesf/devpod-provider-paperspace/releases/download/##VERSION##/devpod-provider-scaleway-windows-amd64.exe
+      checksum: ##CHECKSUM_WINDOWS_AMD64##
+exec:
+  init: ${PPS_PROVIDER} init
+  command: ${PPS_PROVIDER} command
+  create: ${PPS_PROVIDER} create
+  delete: ${PPS_PROVIDER} delete
+  start: ${PPS_PROVIDER} start
+  stop: ${PPS_PROVIDER} stop
+  status: ${PPS_PROVIDER} status
