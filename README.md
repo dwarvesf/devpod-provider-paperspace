@@ -16,23 +16,9 @@ There are 2 environment variables that you will need to be aware of:
 
 2. `SSH_FOLDER`: The directory of your Paperspace SSH keys. **By default, it is your `~/.ssh` folder.**
 
-    There isn't a clean way to generate SSH keys and inject them into Paperspace machines (at least at the time of this writing), so you need to set them manually.
+    DevPod will generate your keys and save them to your `SSH_FOLDER`. The SSH client library uses `github.com/loft-sh/devpod/pkg/ssh`, which will try to find __`id_devpod_rsa` and `id_devpod_rsa.pub`__ in your `SSH_FOLDER`. If it can't find those files, it will generate its own.
 
-    For your SSH keys, you set them through your account settings. DevPod will generate your keys and save them to your `SSH_FOLDER`. The SSH client library uses `github.com/loft-sh/devpod/pkg/ssh`, which will try to find __`id_devpod_rsa` and `id_devpod_rsa.pub`__ in your `SSH_FOLDER`. If it can't find those files, it will generate its own.
-
-    Once DevPod has initialized your provider, it will generate your SSH key. You can get the public key by running the following command:
-
-    ```sh
-    cat ~/.ssh/id_devpod_rsa.pub
-    ```
-
-    Paste this public key into the `Public Key` field. **You will need to add a trailing space if you are using the key generated from DevPod**.
-    ![](https://docs.paperspace.com/assets/images/security-ssh-c1c4620128f3cafde898c6af522f6e41.png)
-    ![](https://docs.paperspace.com/assets/images/security-ssh-create-acc47ee539cfd5c1fe065bdb0d643117.png)
-    ![](https://docs.paperspace.com/assets/images/security-ssh-delete-29799d9441059a8ce4577dbbf9924626.png)
-
-    For more info, you can look at their docs [here](https://docs.paperspace.com/account-management/account/security/ssh-keys/).
-
+    As of v0.0.15, this provider will automatically authorize the SSH keys in your `SSH_FOLDER` to your machine.
 
 ## Getting started
 

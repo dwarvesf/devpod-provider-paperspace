@@ -77,9 +77,31 @@ func Create(paperspaceProvider *PaperspaceProvider) error {
 		return err
 	}
 
+	devPodInstance, err := GetDevpodInstance(paperspaceProvider)
+	if err != nil {
+		return err
+	}
+	publicKey, err := GetPublicKey(paperspaceProvider)
+	if err != nil {
+		return err
+	}
+	scriptText := sshInitScript(publicKey)
+
+	_, err = paperspaceProvider.Client.CreateScript(CreateScriptParams{
+		ScriptName:        "ssh-init-" + paperspaceProvider.Config.MachineID,
+		ScriptText:        scriptText,
+		ScriptDescription: "An init script to transfer SSH credentials to the devpod instance.",
+		RunOnce:           true,
+		IsEnabled:         true,
+		MachineID:         devPodInstance.ID,
+	})
+	if err != nil {
+		return err
+	}
+
 	stillCreating := true
 	for stillCreating {
-		devPodInstance, err := GetDevpodInstance(paperspaceProvider)
+		devPodInstance, err = GetDevpodInstance(paperspaceProvider)
 		if err != nil {
 			return err
 		}
@@ -98,6 +120,13 @@ func Create(paperspaceProvider *PaperspaceProvider) error {
 
 func Delete(paperspaceProvider *PaperspaceProvider) error {
 	devPodInstance, err := GetDevpodInstance(paperspaceProvider)
+	if err != nil {
+		return err
+	}
+
+	_, err = paperspaceProvider.Client.DestroyScript(DestroyScriptParams{
+		ScriptID: devPodInstance.ScriptID,
+	})
 	if err != nil {
 		return err
 	}
@@ -200,4 +229,8 @@ func Init(paperspaceProvider *PaperspaceProvider) error {
 		return err
 	}
 	return nil
+}
+
+func sshInitScript(publicKey string) string {
+	return fmt.Sprintf(`echo "%s" >> ~/.ssh/authorized_keys`, publicKey)
 }

@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/dwarvesf/devpod-provider-paperspace/pkg/paperspace"
 	"github.com/loft-sh/devpod/pkg/provider"
@@ -54,17 +53,9 @@ func (cmd *CommandCmd) Run(
 		return fmt.Errorf("command environment variable is missing")
 	}
 
-	sshFolder := paperspaceProvider.Config.SSHFolder
-	if strings.Contains(sshFolder, "~/") {
-		homeDir, err := os.UserHomeDir()
-		if err != nil {
-			return fmt.Errorf("%s", err)
-		}
-		sshFolder = strings.Replace(sshFolder, "~", homeDir, 1)
-	}
-	privateKey, err := ssh.GetPrivateKeyRawBase(sshFolder)
+	privateKey, err := paperspace.GetPrivateKey(paperspaceProvider)
 	if err != nil {
-		return fmt.Errorf("load private key: %w", err)
+		return err
 	}
 
 	// get instance

@@ -122,35 +122,35 @@ type GetMachineParams struct {
 }
 
 type GetMachineResponse struct {
-	ID                     string     `json:"id"`
-	Name                   string     `json:"name"`
-	OS                     string     `json:"os"`
-	RAM                    int64      `json:"ram,string"`
-	CPUs                   int        `json:"cpus"`
-	GPU                    string     `json:"gpu"`
-	StorageTotal           int64      `json:"storageTotal,string"`
-	StorageUsed            int64      `json:"storageUsed,string"`
-	MachineType            string     `json:"machineType"`
-	UsageRate              string     `json:"usageRate"`
-	ShutdownTimeoutInHours int        `json:"shutdownTimeoutInHours"`
-	ShutdownTimeoutForces  bool       `json:"shutdownTimeoutForces"`
-	PerformAutoSnapshot    bool       `json:"performAutoSnapshot"`
-	AutoSnapshotFrequency  string     `json:"autoSnapshotFrequency"`
-	AutoSnapshotSaveCount  int        `json:"autoSnapshotSaveCount"`
-	DynamicPublicIP        bool       `json:"dynamicPublicIp"`
-	AgentType              string     `json:"agentType"`
-	DtCreated              time.Time  `json:"dtCreated"`
-	State                  string     `json:"state"`
-	UpdatesPending         bool       `json:"updatesPending"`
-	NetworkID              string     `json:"networkId"`
-	PrivateIPAddress       string     `json:"privateIpAddress"`
-	PublicIPAddress        string     `json:"publicIpAddress"`
-	Region                 string     `json:"region"`
-	ScriptID               *string    `json:"scriptId"`               // pointer to handle null value
-	DtLastRun              *time.Time `json:"dtLastRun"`              // pointer to handle null value
-	RestorePointSnapshotID *string    `json:"restorePointSnapshotId"` // pointer to handle null value
-	RestorePointFrequency  *string    `json:"restorePointFrequency"`  // pointer to handle null value
-	Events                 []Event    `json:"events"`                 // slice of Event structs
+	ID                     string    `json:"id"`
+	Name                   string    `json:"name"`
+	OS                     string    `json:"os"`
+	RAM                    int64     `json:"ram,string"`
+	CPUs                   int       `json:"cpus"`
+	GPU                    string    `json:"gpu"`
+	StorageTotal           int64     `json:"storageTotal,string"`
+	StorageUsed            int64     `json:"storageUsed,string"`
+	MachineType            string    `json:"machineType"`
+	UsageRate              string    `json:"usageRate"`
+	ShutdownTimeoutInHours int       `json:"shutdownTimeoutInHours"`
+	ShutdownTimeoutForces  bool      `json:"shutdownTimeoutForces"`
+	PerformAutoSnapshot    bool      `json:"performAutoSnapshot"`
+	AutoSnapshotFrequency  string    `json:"autoSnapshotFrequency"`
+	AutoSnapshotSaveCount  int       `json:"autoSnapshotSaveCount"`
+	DynamicPublicIP        bool      `json:"dynamicPublicIp"`
+	AgentType              string    `json:"agentType"`
+	DtCreated              time.Time `json:"dtCreated"`
+	State                  string    `json:"state"`
+	UpdatesPending         bool      `json:"updatesPending"`
+	NetworkID              string    `json:"networkId"`
+	PrivateIPAddress       string    `json:"privateIpAddress"`
+	PublicIPAddress        string    `json:"publicIpAddress"`
+	Region                 string    `json:"region"`
+	ScriptID               string    `json:"scriptId"`               // pointer to handle null value
+	DtLastRun              time.Time `json:"dtLastRun"`              // pointer to handle null value
+	RestorePointSnapshotID string    `json:"restorePointSnapshotId"` // pointer to handle null value
+	RestorePointFrequency  string    `json:"restorePointFrequency"`  // pointer to handle null value
+	Events                 []Event   `json:"events"`                 // slice of Event structs
 }
 
 type Event struct {
