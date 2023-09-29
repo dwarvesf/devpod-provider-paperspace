@@ -12,7 +12,8 @@ var (
 	PPS_DISK_SIZE        = "PPS_DISK_SIZE"
 	PPS_MACHINE_NAME     = "PPS_MACHINE_NAME"
 	PPS_MACHINE_TEMPLATE = "PPS_MACHINE_TEMPLATE"
-	PPS_MACHINE_FOLDER   = "PPS_MACHINE_FOLDER"
+	MACHINE_ID           = "MACHINE_ID"
+	MACHINE_FOLDER       = "MACHINE_FOLDER"
 )
 
 type Options struct {
@@ -21,7 +22,7 @@ type Options struct {
 	DiskSizeGB  string
 	Region      string
 
-	MachineName     string
+	MachineID       string
 	MachineTemplate string
 	MachineFolder   string
 }
@@ -62,19 +63,19 @@ func FromEnv(init bool) (*Options, error) {
 		return retOptions, nil
 	}
 
-	retOptions.MachineName, err = fromEnvOrError(PPS_MACHINE_NAME)
+	retOptions.MachineID, err = fromEnvOrError(MACHINE_ID)
 	if err != nil {
 		return nil, err
 	}
 	// prefix with devpod-
-	retOptions.MachineName = "devpod-" + retOptions.MachineName
+	retOptions.MachineID = "devpod-" + retOptions.MachineID
 
 	retOptions.MachineTemplate, err = fromEnvOrError(PPS_MACHINE_TEMPLATE)
 	if err != nil {
 		return nil, err
 	}
 
-	retOptions.MachineFolder, err = fromEnvOrError(PPS_MACHINE_FOLDER)
+	retOptions.MachineFolder, err = fromEnvOrError(MACHINE_FOLDER)
 	if err != nil {
 		return nil, err
 	}

@@ -9,8 +9,6 @@ optionGroups:
       - PPS_IMAGE
       - PPS_MACHINE_TYPE
       - PPS_DEFAULT_REGION
-      - PPS_MACHINE_NAME
-      - PPS_MACHINE_FOLDER
     name: "Paperspace options"
   - options:
       - AGENT_PATH
@@ -89,10 +87,6 @@ options:
       - C8
       - C9
 
-  PPS_MACHINE_NAME:
-    description: The name of the Paperspace Machine.
-    default: remote-environment
-
   PPS_MACHINE_TEMPLATE:
     description: The Template ID of the template to use for creating this machine.
     required: true
@@ -104,10 +98,6 @@ options:
       - t04azgph
       - t9taj00e
       - tnr2oh1m
-
-  PPS_MACHINE_FOLDER:
-    description: The local folder which has your SSH public and private keys located to be used with Paperspace.
-    required: true
 
   INACTIVITY_TIMEOUT:
     description: If defined, will automatically stop the VM after the inactivity period.

@@ -42,7 +42,7 @@ func NewProvider(logs log.Logger, init bool) (*PaperspaceProvider, error) {
 
 func GetDevpodInstance(paperspaceProvider *PaperspaceProvider) (*GetMachineResponse, error) {
 	servers, err := paperspaceProvider.Client.GetMachines(GetMachinesParams{
-		Name: paperspaceProvider.Config.MachineName,
+		Name: paperspaceProvider.Config.MachineID,
 	})
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func GetDevpodInstance(paperspaceProvider *PaperspaceProvider) (*GetMachineRespo
 func Create(paperspaceProvider *PaperspaceProvider) error {
 	sizeGB, _ := strconv.Atoi(paperspaceProvider.Config.DiskSizeGB)
 	_, err := paperspaceProvider.Client.CreateMachine(CreateMachineParams{
-		MachineName:     paperspaceProvider.Config.MachineName,
+		MachineName:     paperspaceProvider.Config.MachineID,
 		TemplateID:      paperspaceProvider.Config.MachineTemplate,
 		MachineType:     paperspaceProvider.Config.MachineType,
 		Region:          paperspaceProvider.Config.Region,

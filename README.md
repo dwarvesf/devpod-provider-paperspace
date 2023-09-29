@@ -14,7 +14,7 @@ There are 2 environment variables that you will be prompted to set:
 
     ![](https://docs.paperspace.com/assets/images/security-api-key-2-1ee96c963c8e029f4594c02eeb40bacc.png)
 
-2. `PPS_MACHINE_FOLDER`: The directory of your Paperspace SSH keys.
+2. `MACHINE_FOLDER`: The directory of your Paperspace SSH keys.
 
     There isn't a clean way to generate SSH keys and inject them into Paperspace machines (at least at the time of this writing), so you need to set them manually.
 
