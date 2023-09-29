@@ -2,6 +2,8 @@
 
 This is a [Paperspace](https://paperspace.com) provider for [DevPod](https://github.com/dwarvesf/devpod), initially forked from https://github.com/dirien/devpod-provider-scaleway. This repository uses Paperspace's [machines API](https://docs.paperspace.com/core/api-reference/machines) to provision the machines.
 
+![](https://i.imgur.com/wyPiEvB.png)
+
 ## Environment Variables
 
 There are 2 environment variables that you will be prompted to set:
