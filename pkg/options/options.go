@@ -3,6 +3,7 @@ package options
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 var (
@@ -75,10 +76,12 @@ func FromEnv(init bool) (*Options, error) {
 	// prefix with devpod-
 	retOptions.MachineID = "devpod-" + retOptions.MachineID
 
-	retOptions.MachineTemplate, err = fromEnvOrError(PPS_MACHINE_TEMPLATE)
+	machineTemplateFull, err := fromEnvOrError(PPS_MACHINE_TEMPLATE)
 	if err != nil {
 		return nil, err
 	}
+	machineTemplate := strings.Split(machineTemplateFull, ",")[0]
+	retOptions.MachineTemplate = machineTemplate
 
 	return retOptions, nil
 }
