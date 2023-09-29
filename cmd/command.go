@@ -53,7 +53,7 @@ func (cmd *CommandCmd) Run(
 		return fmt.Errorf("command environment variable is missing")
 	}
 
-	privateKey, err := ssh.GetPrivateKeyRawBase(providerPaperspace.Config.MachineFolder)
+	privateKey, err := ssh.GetPrivateKeyRawBase(providerPaperspace.Config.SSHFolder)
 	if err != nil {
 		return fmt.Errorf("load private key: %w", err)
 	}

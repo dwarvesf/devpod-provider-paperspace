@@ -2,11 +2,11 @@
 
 This is a [Paperspace](https://paperspace.com) provider for [DevPod](https://github.com/dwarvesf/devpod), initially forked from https://github.com/dirien/devpod-provider-scaleway. This repository uses Paperspace's [machines API](https://docs.paperspace.com/core/api-reference/machines) to provision the machines.
 
-![](https://i.imgur.com/wyPiEvB.png)
+![](https://i.imgur.com/IladdXr.png)
 
 ## Environment Variables
 
-There are 2 environment variables that you will be prompted to set:
+There are 2 environment variables that you will need to be aware of:
 
 1. `PPS_API_KEY`: The API key you generate for your account on Paperspace.
 
@@ -14,7 +14,7 @@ There are 2 environment variables that you will be prompted to set:
 
     ![](https://docs.paperspace.com/assets/images/security-api-key-2-1ee96c963c8e029f4594c02eeb40bacc.png)
 
-2. `MACHINE_FOLDER`: The directory of your Paperspace SSH keys.
+2. `SSH_FOLDER`: The directory of your Paperspace SSH keys.
 
     There isn't a clean way to generate SSH keys and inject them into Paperspace machines (at least at the time of this writing), so you need to set them manually.
 
@@ -24,7 +24,7 @@ There are 2 environment variables that you will be prompted to set:
     ssh-keygen
     ```
 
-    The SSH client library uses `github.com/loft-sh/devpod/pkg/ssh`, which will try to find `id_devpod_rsa` and `id_devpod_rsa.pub` in the folder you want to set for `PPS_MACHINE_FOLDER`. If it can't find those files, it will generate its own. **This means you need to generate your keys with the same name.**
+    The SSH client library uses `github.com/loft-sh/devpod/pkg/ssh`, which will try to find `id_devpod_rsa` and `id_devpod_rsa.pub` in the folder you want to set for `SSH_FOLDER`. If it can't find those files, it will generate its own. **This means you need to generate your keys with the same name.**
 
     Once you've generated your SSH key, you can get the public key by running the following command:
 
@@ -36,7 +36,6 @@ There are 2 environment variables that you will be prompted to set:
     ![](https://docs.paperspace.com/assets/images/security-ssh-c1c4620128f3cafde898c6af522f6e41.png)
     ![](https://docs.paperspace.com/assets/images/security-ssh-create-acc47ee539cfd5c1fe065bdb0d643117.png)
     ![](https://docs.paperspace.com/assets/images/security-ssh-delete-29799d9441059a8ce4577dbbf9924626.png)
-
 
     For more info, you can look at their docs [here](https://docs.paperspace.com/account-management/account/security/ssh-keys/).
 
@@ -68,7 +67,7 @@ You should then see a new window open to your new localhost server, running VSCo
 
 You can customize the environment variables after installation by updating the DevPod provider options like so:
 ```sh
-devpod provider use paperspace -o PPS_MACHINE_FOLDER="GPU+"
+devpod provider use paperspace -o PPS_MACHINE_TYPE="GPU+"
 ```
 
 With this, there are a few environment variables you should be aware of so that you can set and customize your machine type and OS:

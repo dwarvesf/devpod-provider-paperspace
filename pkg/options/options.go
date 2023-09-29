@@ -13,7 +13,7 @@ var (
 	PPS_MACHINE_NAME     = "PPS_MACHINE_NAME"
 	PPS_MACHINE_TEMPLATE = "PPS_MACHINE_TEMPLATE"
 	MACHINE_ID           = "MACHINE_ID"
-	MACHINE_FOLDER       = "MACHINE_FOLDER"
+	SSH_FOLDER           = "SSH_FOLDER"
 )
 
 type Options struct {
@@ -24,7 +24,7 @@ type Options struct {
 
 	MachineID       string
 	MachineTemplate string
-	MachineFolder   string
+	SSHFolder       string
 }
 
 func ConfigFromEnv() (Options, error) {
@@ -75,7 +75,7 @@ func FromEnv(init bool) (*Options, error) {
 		return nil, err
 	}
 
-	retOptions.MachineFolder, err = fromEnvOrError(MACHINE_FOLDER)
+	retOptions.SSHFolder, err = fromEnvOrError(SSH_FOLDER)
 	if err != nil {
 		return nil, err
 	}

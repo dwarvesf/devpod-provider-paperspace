@@ -9,6 +9,7 @@ optionGroups:
       - PPS_IMAGE
       - PPS_MACHINE_TYPE
       - PPS_DEFAULT_REGION
+      - SSH_FOLDER
     name: "Paperspace options"
   - options:
       - AGENT_PATH
@@ -98,6 +99,10 @@ options:
       - t04azgph
       - t9taj00e
       - tnr2oh1m
+
+  SSH_FOLDER:
+    description: The local folder which has your SSH public and private keys located to be used with Paperspace.
+    required: true
 
   INACTIVITY_TIMEOUT:
     description: If defined, will automatically stop the VM after the inactivity period.
