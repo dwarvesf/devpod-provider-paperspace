@@ -54,11 +54,11 @@ func (cmd *InitCmd) Run(
 		}
 		sshFolder = strings.Replace(sshFolder, "~", homeDir, 1)
 	}
-
-	fmt.Println(sshFolder)
 	_, err := ssh.GetPrivateKeyRawBase(sshFolder)
 	if err != nil {
 		return fmt.Errorf("load private key: %w", err)
 	}
+	fmt.Printf("Successfully generated/found SSH key `id_devpod_rsa` in: %s", sshFolder)
+
 	return paperspace.Init(paperspaceProvider)
 }
