@@ -29,7 +29,7 @@ There are 2 environment variables that you will need to be aware of:
     Once you've generated your SSH key, you can get the public key by running the following command:
 
     ```sh
-    cat ~/your_machine_folder/id_devpod_rsa.pub
+    cat ~/your_ssh_folder/id_devpod_rsa.pub
     ```
 
     Paste this public key into the `Public Key` field.
