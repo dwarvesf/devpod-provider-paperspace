@@ -91,14 +91,14 @@ options:
   PPS_MACHINE_TEMPLATE:
     description: The Template ID of the template to use for creating this machine.
     required: true
-    default: t0nspur5 Ubuntu 22.04 Server
+    default: t0nspur5
     suggestions:
-      - tpi7gqht Ubuntu 22.04 K8s Worker
-      - tkni3aa4 Ubuntu 20.04 Server
-      - t0nspur5 Ubuntu 22.04 Server
-      - t04azgph Ubuntu 18.04 Server
-      - t9taj00e CentOS 7 Server
-      - tnr2oh1m Windows 10 (Server 2022) - Licensed
+      - tpi7gqht
+      - tkni3aa4
+      - t0nspur5
+      - t04azgph
+      - t9taj00e
+      - tnr2oh1m
 
   SSH_FOLDER:
     description: The local folder which has your SSH public and private keys located to be used with Paperspace.
