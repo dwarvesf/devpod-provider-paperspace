@@ -18,7 +18,9 @@ func GetPublicKey(paperspaceProvider *PaperspaceProvider) (string, error) {
 	if err != nil {
 		return "", nil
 	}
-	return string(publicKeyBytes), nil
+
+	publicKey := strings.TrimSuffix(string(publicKeyBytes), "\n")
+	return publicKey, nil
 }
 
 // GetPublicKeyBase returns the public key of the Paperspace provider in Base64 string

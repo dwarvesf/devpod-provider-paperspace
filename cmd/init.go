@@ -43,13 +43,14 @@ func (cmd *InitCmd) Run(
 	machine *provider.Machine,
 	logs log.Logger,
 ) error {
-	_, err := paperspace.GetPrivateKeyBase(paperspaceProvider)
+	publicKey, err := paperspace.GetPublicKey(paperspaceProvider)
 	if err != nil {
 		return fmt.Errorf("load private key: %w", err)
 	}
 	fmt.Printf(
-		"Successfully generated/found SSH key `id_devpod_rsa` in: %s",
+		"Generated SSH key %s/id_devpod_rsa: %s",
 		paperspaceProvider.Config.SSHFolder,
+		publicKey,
 	)
 
 	return paperspace.Init(paperspaceProvider)

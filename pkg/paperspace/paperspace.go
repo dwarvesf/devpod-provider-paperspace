@@ -232,5 +232,5 @@ func Init(paperspaceProvider *PaperspaceProvider) error {
 }
 
 func sshInitScript(publicKey string) string {
-	return fmt.Sprintf(`echo "%s" >> ~/.ssh/authorized_keys`, publicKey)
+	return fmt.Sprintf(`echo "%s" >> /home/paperspace/.ssh/authorized_keys`, publicKey)
 }
