@@ -53,7 +53,7 @@ func (cmd *CommandCmd) Run(
 		return fmt.Errorf("command environment variable is missing")
 	}
 
-	privateKey, err := paperspace.GetPrivateKey(paperspaceProvider)
+	privateKey, err := paperspace.GetPrivateKeyBase(paperspaceProvider)
 	if err != nil {
 		return err
 	}

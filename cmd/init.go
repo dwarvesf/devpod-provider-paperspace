@@ -43,7 +43,7 @@ func (cmd *InitCmd) Run(
 	machine *provider.Machine,
 	logs log.Logger,
 ) error {
-	_, err := paperspace.GetPrivateKey(paperspaceProvider)
+	_, err := paperspace.GetPrivateKeyBase(paperspaceProvider)
 	if err != nil {
 		return fmt.Errorf("load private key: %w", err)
 	}
