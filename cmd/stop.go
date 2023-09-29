@@ -39,9 +39,9 @@ func NewStopCmd() *cobra.Command {
 // Run runs the command logic
 func (cmd *StopCmd) Run(
 	ctx context.Context,
-	providerPaperspace *paperspace.PaperspaceProvider,
+	paperspaceProvider *paperspace.PaperspaceProvider,
 	machine *provider.Machine,
 	logs log.Logger,
 ) error {
-	return paperspace.Stop(providerPaperspace)
+	return paperspace.Stop(paperspaceProvider)
 }

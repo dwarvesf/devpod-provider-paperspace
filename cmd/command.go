@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/dwarvesf/devpod-provider-paperspace/pkg/paperspace"
 	"github.com/loft-sh/devpod/pkg/provider"
@@ -43,7 +44,7 @@ func NewCommandCmd() *cobra.Command {
 // Run runs the command logic
 func (cmd *CommandCmd) Run(
 	ctx context.Context,
-	providerPaperspace *paperspace.PaperspaceProvider,
+	paperspaceProvider *paperspace.PaperspaceProvider,
 	machine *provider.Machine,
 	logs log.Logger,
 ) error {
@@ -53,13 +54,21 @@ func (cmd *CommandCmd) Run(
 		return fmt.Errorf("command environment variable is missing")
 	}
 
-	privateKey, err := ssh.GetPrivateKeyRawBase(providerPaperspace.Config.SSHFolder)
+	sshFolder := paperspaceProvider.Config.SSHFolder
+	if strings.Contains(sshFolder, "~/") {
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			return fmt.Errorf("%s", err)
+		}
+		sshFolder = strings.Replace(sshFolder, "~", homeDir, 1)
+	}
+	privateKey, err := ssh.GetPrivateKeyRawBase(sshFolder)
 	if err != nil {
 		return fmt.Errorf("load private key: %w", err)
 	}
 
 	// get instance
-	instance, err := paperspace.GetDevpodInstance(providerPaperspace)
+	instance, err := paperspace.GetDevpodInstance(paperspaceProvider)
 	if err != nil {
 		return err
 	}

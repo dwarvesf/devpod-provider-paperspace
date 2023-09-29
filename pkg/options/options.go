@@ -58,7 +58,12 @@ func FromEnv(init bool) (*Options, error) {
 		return nil, err
 	}
 
-	// Return eraly if we're just doing init
+	retOptions.SSHFolder, err = fromEnvOrError(SSH_FOLDER)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return early if we're just doing init
 	if init {
 		return retOptions, nil
 	}
@@ -75,10 +80,6 @@ func FromEnv(init bool) (*Options, error) {
 		return nil, err
 	}
 
-	retOptions.SSHFolder, err = fromEnvOrError(SSH_FOLDER)
-	if err != nil {
-		return nil, err
-	}
 	return retOptions, nil
 }
 

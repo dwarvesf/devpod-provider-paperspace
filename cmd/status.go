@@ -41,12 +41,12 @@ func NewStatusCmd() *cobra.Command {
 // Run runs the command logic
 func (cmd *StatusCmd) Run(
 	ctx context.Context,
-	providerPaperspace *paperspace.PaperspaceProvider,
+	paperspaceProvider *paperspace.PaperspaceProvider,
 	machine *provider.Machine,
 	logs log.Logger,
 ) error {
 
-	status, err := paperspace.Status(providerPaperspace)
+	status, err := paperspace.Status(paperspaceProvider)
 	if err != nil {
 		return err
 	}

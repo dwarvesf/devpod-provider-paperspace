@@ -39,9 +39,9 @@ func NewStartCmd() *cobra.Command {
 // Run runs the command logic
 func (cmd *StartCmd) Run(
 	ctx context.Context,
-	providerPaperspace *paperspace.PaperspaceProvider,
+	paperspaceProvider *paperspace.PaperspaceProvider,
 	machine *provider.Machine,
 	logs log.Logger,
 ) error {
-	return paperspace.Start(providerPaperspace)
+	return paperspace.Start(paperspaceProvider)
 }

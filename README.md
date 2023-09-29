@@ -2,37 +2,31 @@
 
 This is a [Paperspace](https://paperspace.com) provider for [DevPod](https://github.com/dwarvesf/devpod), initially forked from https://github.com/dirien/devpod-provider-scaleway. This repository uses Paperspace's [machines API](https://docs.paperspace.com/core/api-reference/machines) to provision the machines.
 
-![](https://i.imgur.com/IladdXr.png)
+![](https://i.imgur.com/TdpCAz5.png)
 
 ## Environment Variables
 
 There are 2 environment variables that you will need to be aware of:
 
-1. `PPS_API_KEY`: The API key you generate for your account on Paperspace.
+1. `PPS_API_KEY`: The API key you generate for your account on Paperspace. You will be prompted for this when you add the provider.
 
     To acquire your API key, you can get it in your workspace settings on Paperspace. For more info, you can look at their docs [here](https://docs.paperspace.com/account-management/account/security/api-keys).
 
     ![](https://docs.paperspace.com/assets/images/security-api-key-2-1ee96c963c8e029f4594c02eeb40bacc.png)
 
-2. `SSH_FOLDER`: The directory of your Paperspace SSH keys.
+2. `SSH_FOLDER`: The directory of your Paperspace SSH keys. **By default, it is your `~/.ssh` folder.**
 
     There isn't a clean way to generate SSH keys and inject them into Paperspace machines (at least at the time of this writing), so you need to set them manually.
 
-    For your SSH keys, you set them through your account settings. Generate your keys and save them to a folder that you can reference back to.
+    For your SSH keys, you set them through your account settings. DevPod will generate your keys and save them to your `SSH_FOLDER`. The SSH client library uses `github.com/loft-sh/devpod/pkg/ssh`, which will try to find __`id_devpod_rsa` and `id_devpod_rsa.pub`__ in your `SSH_FOLDER`. If it can't find those files, it will generate its own.
+
+    Once DevPod has initialized your provider, it will generate your SSH key. You can get the public key by running the following command:
 
     ```sh
-    ssh-keygen
+    cat ~/.ssh/id_devpod_rsa.pub
     ```
 
-    The SSH client library uses `github.com/loft-sh/devpod/pkg/ssh`, which will try to find `id_devpod_rsa` and `id_devpod_rsa.pub` in the folder you want to set for `SSH_FOLDER`. If it can't find those files, it will generate its own. **This means you need to generate your keys with the same name.**
-
-    Once you've generated your SSH key, you can get the public key by running the following command:
-
-    ```sh
-    cat ~/your_ssh_folder/id_devpod_rsa.pub
-    ```
-
-    Paste this public key into the `Public Key` field.
+    Paste this public key into the `Public Key` field. **You will need to add a trailing space if you are using the key generated from DevPod**.
     ![](https://docs.paperspace.com/assets/images/security-ssh-c1c4620128f3cafde898c6af522f6e41.png)
     ![](https://docs.paperspace.com/assets/images/security-ssh-create-acc47ee539cfd5c1fe065bdb0d643117.png)
     ![](https://docs.paperspace.com/assets/images/security-ssh-delete-29799d9441059a8ce4577dbbf9924626.png)
