@@ -1,5 +1,7 @@
 # Paperspace Provider for DevPod
 
+[![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/dwarvesf/devpod-provider-paperspace)
+
 This is a [Paperspace](https://paperspace.com) provider for [DevPod](https://github.com/dwarvesf/devpod), initially forked from https://github.com/dirien/devpod-provider-scaleway. This repository uses Paperspace's [machines API](https://docs.paperspace.com/core/api-reference/machines) to provision the machines.
 
 ![](https://i.imgur.com/TdpCAz5.png)
