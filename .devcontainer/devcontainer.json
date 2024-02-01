@@ -26,8 +26,6 @@
     3000,
     5432
   ],
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "make setup",
   // Use 'postStartCommand' to run commands after the container starts.
   "postStartCommand": {
     "safeDir": "git config --global --add safe.directory ${containerWorkspaceFolder}"
