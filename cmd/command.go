@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/dwarvesf/devpod-provider-paperspace/pkg/paperspace"
-	"github.com/loft-sh/devpod/pkg/provider"
 	"github.com/loft-sh/devpod/pkg/ssh"
 	"github.com/loft-sh/log"
 	"github.com/pkg/errors"
@@ -31,7 +30,6 @@ func NewCommandCmd() *cobra.Command {
 			return cmd.Run(
 				context.Background(),
 				paperspaceProvider,
-				provider.FromEnvironment(),
 				log.Default,
 			)
 		},
@@ -44,7 +42,6 @@ func NewCommandCmd() *cobra.Command {
 func (cmd *CommandCmd) Run(
 	ctx context.Context,
 	paperspaceProvider *paperspace.PaperspaceProvider,
-	machine *provider.Machine,
 	logs log.Logger,
 ) error {
 	command := os.Getenv("COMMAND")
