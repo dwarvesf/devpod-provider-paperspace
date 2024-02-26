@@ -60,7 +60,7 @@ type DevContainerConfigBase struct {
 	PortsAttributes map[string]PortAttribute `json:"portAttributes,omitempty"`
 
 	// Set default properties that are applied to all ports that don't get properties from the setting `remote.portsAttributes`.
-	OtherPortsAttributes map[string]PortAttribute `json:"otherPortsAttributes,omitempty"`
+	OtherPortsAttributes *PortAttribute `json:"otherPortsAttributes,omitempty"`
 
 	// Controls whether on Linux the container's user should be updated with the local user's UID and GID. On by default when opening from a local folder.
 	UpdateRemoteUserUID *bool `json:"updateRemoteUserUID,omitempty"`
@@ -257,6 +257,13 @@ func (d DockerfileContainer) GetArgs() map[string]string {
 	return nil
 }
 
+func (d DockerfileContainer) GetOptions() []string {
+	if d.Build != nil {
+		return d.Build.Options
+	}
+	return nil
+}
+
 func (d DockerfileContainer) GetCacheFrom() types.StrArray {
 	if d.Build != nil {
 		return d.Build.CacheFrom
@@ -279,6 +286,9 @@ type ConfigBuildOptions struct {
 
 	// The image to consider as a cache. Use an array to specify multiple images.
 	CacheFrom types.StrArray `json:"cacheFrom,omitempty"`
+
+	// Build cli options
+	Options []string `json:"options,omitempty"`
 }
 
 type HostRequirements struct {
