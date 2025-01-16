@@ -16,6 +16,7 @@ var (
 	WorkspaceSourceLocal     = "local:"
 	WorkspaceSourceImage     = "image:"
 	WorkspaceSourceContainer = "container:"
+	WorkspaceSourceUnknown   = "unknown:"
 )
 
 type Workspace struct {
@@ -195,28 +196,30 @@ type AgentWorkspaceInfo struct {
 
 type CLIOptions struct {
 	// up options
-	flags.GitCredentialsFlags  `json:",inline"`
-	ID                         string            `json:"id,omitempty"`
-	Source                     string            `json:"source,omitempty"`
-	IDE                        string            `json:"ide,omitempty"`
-	IDEOptions                 []string          `json:"ideOptions,omitempty"`
-	PrebuildRepositories       []string          `json:"prebuildRepositories,omitempty"`
-	DevContainerImage          string            `json:"devContainerImage,omitempty"`
-	DevContainerPath           string            `json:"devContainerPath,omitempty"`
-	EnvironmentTemplate        string            `json:"environmentTemplate,omitempty"`
-	EnvironmentTemplateVersion string            `json:"environmentTemplateVersion,omitempty"`
-	WorkspaceEnv               []string          `json:"workspaceEnv,omitempty"`
-	WorkspaceEnvFile           []string          `json:"workspaceEnvFile,omitempty"`
-	InitEnv                    []string          `json:"initEnv,omitempty"`
-	Recreate                   bool              `json:"recreate,omitempty"`
-	Reset                      bool              `json:"reset,omitempty"`
-	Proxy                      bool              `json:"proxy,omitempty"`
-	DisableDaemon              bool              `json:"disableDaemon,omitempty"`
-	DaemonInterval             string            `json:"daemonInterval,omitempty"`
-	ForceCredentials           bool              `json:"forceCredentials,omitempty"`
-	GitCloneStrategy           git.CloneStrategy `json:"gitCloneStrategy,omitempty"`
-	FallbackImage              string            `json:"fallbackImage,omitempty"`
-	GitSSHSigningKey           string            `json:"gitSshSigningKey,omitempty"`
+	flags.GitCredentialsFlags   `json:",inline"`
+	ID                          string            `json:"id,omitempty"`
+	Source                      string            `json:"source,omitempty"`
+	IDE                         string            `json:"ide,omitempty"`
+	IDEOptions                  []string          `json:"ideOptions,omitempty"`
+	PrebuildRepositories        []string          `json:"prebuildRepositories,omitempty"`
+	DevContainerImage           string            `json:"devContainerImage,omitempty"`
+	DevContainerPath            string            `json:"devContainerPath,omitempty"`
+	EnvironmentTemplate         string            `json:"environmentTemplate,omitempty"`
+	EnvironmentTemplateVersion  string            `json:"environmentTemplateVersion,omitempty"`
+	WorkspaceEnv                []string          `json:"workspaceEnv,omitempty"`
+	WorkspaceEnvFile            []string          `json:"workspaceEnvFile,omitempty"`
+	InitEnv                     []string          `json:"initEnv,omitempty"`
+	Recreate                    bool              `json:"recreate,omitempty"`
+	Reset                       bool              `json:"reset,omitempty"`
+	Proxy                       bool              `json:"proxy,omitempty"`
+	DisableDaemon               bool              `json:"disableDaemon,omitempty"`
+	DaemonInterval              string            `json:"daemonInterval,omitempty"`
+	ForceCredentials            bool              `json:"forceCredentials,omitempty"`
+	GitCloneStrategy            git.CloneStrategy `json:"gitCloneStrategy,omitempty"`
+	GitCloneRecursiveSubmodules bool              `json:"gitCloneRecursive,omitempty"`
+	FallbackImage               string            `json:"fallbackImage,omitempty"`
+	GitSSHSigningKey            string            `json:"gitSshSigningKey,omitempty"`
+	SSHAuthSockID               string            `json:"sshAuthSockID,omitempty"` // ID to use when looking for SSH_AUTH_SOCK, defaults to a new random ID if not set (only used for browser IDEs)
 
 	// build options
 	Repository string   `json:"repository,omitempty"`
@@ -259,6 +262,28 @@ func (w WorkspaceSource) String() string {
 	}
 
 	return ""
+}
+
+func (w WorkspaceSource) Type() string {
+	if w.GitRepository != "" {
+		if w.GitPRReference != "" {
+			return WorkspaceSourceGit + "pr"
+		} else if w.GitBranch != "" {
+			return WorkspaceSourceGit + "branch"
+		} else if w.GitCommit != "" {
+			return WorkspaceSourceGit + "commit"
+		}
+
+		return WorkspaceSourceGit
+	} else if w.LocalFolder != "" {
+		return WorkspaceSourceLocal
+	} else if w.Image != "" {
+		return WorkspaceSourceImage
+	} else if w.Container != "" {
+		return WorkspaceSourceContainer
+	}
+
+	return WorkspaceSourceUnknown
 }
 
 func ParseWorkspaceSource(source string) *WorkspaceSource {
