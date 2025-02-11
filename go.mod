@@ -1,9 +1,11 @@
 module github.com/dwarvesf/devpod-provider-paperspace
 
 go 1.21
+toolchain go1.22.12
+
 require (
 	github.com/google/go-querystring v1.1.0
-	github.com/loft-sh/devpod v0.6.9
+	github.com/loft-sh/devpod v0.6.12
 	github.com/loft-sh/log v0.0.0-20240219160058-26d83ffb46ac
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.8.1
